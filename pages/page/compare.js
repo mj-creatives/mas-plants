@@ -32,9 +32,7 @@ const CompareItems = ({
               alt=""
             />
           </div>
-          <a href="#">
-            <h5>{title}</h5>
-          </a>
+          <h5 className='mt-2'>{title}</h5>
           <h5>{price}</h5>
         </div>
         <div className="detail-part">
@@ -94,12 +92,30 @@ const CompareTwo = () => {
   const compareItem = contextCompare.compareItems;
   const cartCtx = useContext(CartContext);
   const addToCart = cartCtx.addToCart;
+  console.log("compareItem: ",compareItem)
   return (
-    <CommonLayout parent="home" title="compare-2">
+    <CommonLayout parent="home" title="compare">
       <section className="compare-section section-b-space ratio_asos" >
         <Container >
           <Row >
             <Col >
+              {
+              compareItem.length === 0
+              ?
+              <section className="p-0">
+                <Container>
+                    <Row>
+                        <Col sm="12">
+                            <div className="error-section">
+                                <h1>Empty</h1>
+                                <h2>Add Items To Start Comparing</h2>
+                                <a href="/shop/store" className="btn btn-solid">back to store</a>
+                            </div>
+                        </Col>
+                    </Row>
+                </Container>
+              </section>
+              :
               <Slider {...Slider4}>
                 {compareItem.map((data, i) => {
                   return (
@@ -122,6 +138,7 @@ const CompareTwo = () => {
                   );
                 })}
               </Slider>
+              }
             </Col>
           </Row>
         </Container>

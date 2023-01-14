@@ -3,6 +3,7 @@ import { useQuery } from "@apollo/client";
 import { gql } from "@apollo/client";
 import { Media } from "reactstrap";
 import Slider from "react-slick";
+import { useRouter } from "next/router";
 
 const GET_PRODUCTS = gql`
 query {
@@ -33,8 +34,12 @@ query {
 `;
 
 const NewProduct = () => {
+  const router = useRouter();
   var { loading, data } = useQuery(GET_PRODUCTS);
-
+  const clickProductDetail = (product) => {
+    const titleProps = product.attributes.title.split(" ").join("");
+    router.push(`/product-details/${product.id}` + "-" + `${titleProps}`, undefined, { shallow: true });
+  };
   return (
     // <!-- side-bar single product slider start -->
     <div className="theme-card">
@@ -51,7 +56,7 @@ const NewProduct = () => {
               {data &&
                 data.products.data.slice(0, 3).map((product, index) => (
                   <div className="media" key={index}>
-                    <a href="">
+                    <a href={null} onClick={() => clickProductDetail(product)}>
                     {
                       !product.attributes.img_shop_compare_736_1000.data[0] 
                       ? 

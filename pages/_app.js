@@ -60,13 +60,13 @@ export default function MyApp({ Component, pageProps }) {
           </Helmet>
           <div>
             <SettingProvider>
-              <CompareContextProvider>
-                  <CartContextProvider>
-                      <FilterProvider>
-                        <Component {...pageProps} />
-                      </FilterProvider>
-                  </CartContextProvider>
-              </CompareContextProvider>
+                <CompareContextProvider>
+                    <CartContextProvider>
+                        <FilterProvider>
+                          <Component {...pageProps} />
+                        </FilterProvider>
+                    </CartContextProvider>
+                </CompareContextProvider>
             </SettingProvider>
             <ToastContainer />
             <TapTop />

@@ -198,7 +198,7 @@ const ProductSection = ({productData}) => {
                 <Col lg="6" xs="12">
                   <div className="quick-view-img">
                     <Media
-                      src={`${selectedProduct.attributes.images.data[0].attributes.url}`}
+                      src={`${selectedProduct.attributes.img_shop_compare_736_1000.data[0].attributes.url}`}
                       alt=""
                       className="img-fluid"
                     />

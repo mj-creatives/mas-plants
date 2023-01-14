@@ -5,7 +5,7 @@ import { useRouter } from "next/router";
 
 const Price = () => {
   const context = useContext(FilterContext);
-  const [values, setValues] = useState([0, 500]);
+  const [values, setValues] = useState([0, 1000]);
   const price = context.selectedPrice;
   const router = useRouter();
   const setSelectedPrice = context.setSelectedPrice;
@@ -19,7 +19,7 @@ const Price = () => {
       setSelectedPrice({ min: value[0], max: value[1] })
       setValues(value)
       router.push(
-        `${url}?category=${context.state}&brand=${context.selectedBrands}&minPrice=${context.selectedPrice?.min}&maxPrice=${context.selectedPrice?.max}`,
+        `${url}?category=${context.state}&type=${context.selectedBrands}&minPrice=${context.selectedPrice?.min}&maxPrice=${context.selectedPrice?.max}`,
         undefined,
         { shallow: true }
       );
@@ -35,7 +35,7 @@ const Price = () => {
               values={values}
               step={10}
               min={0}
-              max={500}
+              max={1000}
               onChange={price => {
                 priceHandle(price);
               }}

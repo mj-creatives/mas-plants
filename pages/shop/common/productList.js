@@ -1,6 +1,5 @@
 import React, { useState, useContext, useEffect } from "react";
 import { Col, Row, Media, Button, Spinner } from "reactstrap";
-import Menu2 from "../../../public/assets/images/mega-menu/2.jpg";
 import { useQuery } from "@apollo/client";
 import { gql } from "@apollo/client";
 import FilterContext from "../../../helpers/filter/FilterContext";
@@ -86,6 +85,7 @@ const ProductList = ({ colClass, layoutList, openSidebar, noSidebar, catDesc, ca
   const selectedBrands = filterContext.selectedBrands;
   const selectedPrice = filterContext.selectedPrice;
   const selectedCategory = filterContext.state;
+  const setSubCategoriesState = filterContext.setSubCategories;
   const [sortBy, setSortBy] = useState("updatedAt:desc");
   const [layout, setLayout] = useState(layoutList);
   const [url, setUrl] = useState();
@@ -94,7 +94,7 @@ const ProductList = ({ colClass, layoutList, openSidebar, noSidebar, catDesc, ca
     const pathname = window.location.pathname;
     setUrl(pathname);
     router.push(
-      `${pathname}?category=${selectedCategory}&brand=${selectedBrands}&minPrice=${selectedPrice.min}&maxPrice=${selectedPrice.max}`, undefined, { shallow: true }
+      `${pathname}?category=${selectedCategory}&type=${selectedBrands}&minPrice=${selectedPrice.min}&maxPrice=${selectedPrice.max}`, undefined, { shallow: true }
     );
   }, [selectedBrands, selectedPrice, selectedCategory]);
   const QUERY1 = {
@@ -118,6 +118,14 @@ const ProductList = ({ colClass, layoutList, openSidebar, noSidebar, catDesc, ca
   var { loading, data, fetchMore } = useQuery(GET_PRODUCTS, {
     variables: QUERY
   });
+  useEffect(() => {
+    if (data) {
+      const productIds = data.products.data.map(item => {
+        return item.id;
+      })
+      setSubCategoriesState(productIds)
+    }
+  },[selectedPrice,selectedCategory,data])
   const paginate = (pageNumber) => {
     setCurrentPage(pageNumber);
  };
@@ -138,7 +146,7 @@ const ProductList = ({ colClass, layoutList, openSidebar, noSidebar, catDesc, ca
     temp.splice(selectedBrands.indexOf(val), 1);
     filterContext.setSelectedBrands(temp);
   };
-
+  
   return (
     <Col className="collection-content">
       <div className="page-main-content">
@@ -350,8 +358,8 @@ const ProductList = ({ colClass, layoutList, openSidebar, noSidebar, catDesc, ca
                     )
                   ) : (
                     data &&
-                    data.products.data.map((product, i) => (
-                      <div className={grid} key={i}>
+                    data.products.data.map((product) => (
+                      <div className={grid} key={product.id}>
                         <div className="product">
                           <div>
                             <ProductItem

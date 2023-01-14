@@ -39,7 +39,7 @@ const Category = () => {
         <Collapse isOpen={isCategoryOpen}>
           <div className="collection-collapse-block-content">
             <div className="collection-brand-filter">
-            <ul className="category-list">
+            <ul className="category-list" style={{marginRight:"5px"}}>
             {!data || !data.categories || !data.categories.data || data.categories.data.length === 0 || loading
               ? "loading"
               : data &&

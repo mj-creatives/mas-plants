@@ -2,9 +2,15 @@ import React, { Fragment, useContext } from "react";
 import Link from "next/link";
 import CartContext from "../../../helpers/cart";
 import { Media } from "reactstrap";
+import { useRouter } from "next/router";
 
 const CartHeader = ({ item }) => {
+  const router = useRouter();
   const context = useContext(CartContext);
+  const clickProductDetail = (product) => {
+    const titleProps = product.attributes.title.split(" ").join("");
+    router.push(`/product-details/${product.id}` + "-" + `${titleProps}`, undefined, { shallow: true });
+  };
   return (
     <Fragment>
       <li>
@@ -14,15 +20,15 @@ const CartHeader = ({ item }) => {
           ?
           ''
           :
-          <Link href={"/product-details/" + item.id}>
+          <div onClick={() => clickProductDetail(item)}>
               <Media alt="" className="me-3" src={`${item.attributes.img_shop_compare_736_1000.data[0].attributes.url}`} />
-          </Link>
+          </div>
 
           }
           <div className="media-body">
-            <Link href={"/product-details/" + item.id}>
+            <div onClick={() => clickProductDetail(item)}>
                 <h6>{item.attributes.title}</h6>
-            </Link>
+            </div>
 
             <h4>
               <span>

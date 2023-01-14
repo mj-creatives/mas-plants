@@ -5,6 +5,15 @@ import paypal from "../../../public/assets/images/icon/paypal.png";
 import express from "../../../public/assets/images/icon/american-express.png";
 import discover from "../../../public/assets/images/icon/discover.png";
 import { Media } from "reactstrap";
+import { 
+  FacebookShareButton, 
+  FacebookIcon, 
+  TwitterShareButton, 
+  TwitterIcon,
+  InstapaperIcon, 
+  InstapaperShareButton, 
+  EmailShareButton,
+  EmailIcon, } from 'react-share';
 
 const PaymentData = [
   { img: visa, link: "#" },
@@ -14,7 +23,16 @@ const PaymentData = [
   { img: discover, link: "#" },
 ];
 
+
 const Detail = ({ item }) => {
+  var rebels = (
+    item.product.data.attributes ? 
+    item.product.data.attributes.categories.data.filter(function (pilot) {
+      return pilot.attributes.title !== "All";
+    })
+    :
+    ''
+    )
   return (
     <div className="product-right product-description-box">
       <h2>{item.product.data.attributes.title}</h2>
@@ -26,28 +44,53 @@ const Detail = ({ item }) => {
         <table>
           <tbody>
             <tr>
-              <td>Febric :</td>
-              <td>Chiffon</td>
+              <td>Status :</td>
+              <td>{item.product.data.attributes.type}</td>
             </tr>
             <tr>
-              <td>Color :</td>
-              <td>Red</td>
+              <td>Categories :</td>
+              <td>
+              {rebels.map((category) => {
+                return category.attributes.title + " , ";
+              })}
+              </td>
             </tr>
             <tr>
-              <td>Material :</td>
-              <td>Crepe printed</td>
+              <td>Sub Categories :</td>
+              <td>
+              {item.product.data.attributes.sub_categories.data.map((sub_category) => {
+                return sub_category.attributes.title + " , ";
+              })}
+              </td>
             </tr>
           </tbody>
         </table>
       </div>
       <div className="border-product">
-        <h6 className="product-title">share it</h6>
+        <h6 className="product-title">Share It</h6>
         <div className="product-icon">
           <form className="d-inline-block">
-            <button className="wishlist-btn">
-              <i className="fa fa-heart"></i>
-              <span className="title-font">Add To WishList</span>
-            </button>
+          <FacebookShareButton 
+        url={window.location.href}
+        quote={'Dummy text!'}
+        hashtag="#muo"
+        >
+        <FacebookIcon size={32} round />
+        </FacebookShareButton>
+        <TwitterShareButton
+          url={window.location.href}
+          quote={'Dummy text!'}
+          hashtag="#muo"
+        >
+          <TwitterIcon size={32} round />
+        </TwitterShareButton>
+        <EmailShareButton
+          url={window.location.href}
+          quote={'Dummy text!'}
+          hashtag="#muo"
+        >
+          <EmailIcon size={32} round />
+        </EmailShareButton>
           </form>
         </div>
       </div>

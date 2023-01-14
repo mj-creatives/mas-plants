@@ -5,8 +5,8 @@ import { Collapse, Input } from "reactstrap";
 import FilterContext from "../../../helpers/filter/FilterContext";
 
 const GET_BRAND = gql`
-query subcategories($type: String!){
-  subcategories(filters: { categories:{title : { eq: $type }}},sort: "title:asc") {
+query subcategories($type: [ID!]){
+  subcategories(filters: { products: {id:{in:$type}}},sort: "title:asc") {
     data {
       id
       attributes {
@@ -20,16 +20,14 @@ query subcategories($type: String!){
 const Brand = () => {
   const context = useContext(FilterContext);
   const isChecked = context.isChecked;
-  const filterChecked = context.filterChecked;
   const [isOpen, setIsOpen] = useState(false);
   const toggleBrand = () => setIsOpen(!isOpen);
 
   var { loading, data } = useQuery(GET_BRAND, {
     variables: {
-      type: context.state,
+      type: context.subCategories,
     },
   });
-
   return (
     <div className="collection-collapse-block open">
       <h3 className="collapse-block-title" onClick={toggleBrand}>

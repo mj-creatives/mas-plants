@@ -34,7 +34,7 @@ const SideBar = () => {
               : data &&
               data.categories.data.map((category,index) => (
             <li key={index}>
-              <a href={`/shop/store?category=${category.attributes.title}&brand=&minPrice=0&maxPrice=500`}>
+              <a href={`/shop/store?category=${category.attributes.title}&type=&minPrice=0&maxPrice=1000`}>
                 {category.attributes.title}
               </a>
             </li>

@@ -3,6 +3,7 @@ import Link from "next/link";
 import CartContext from "../../../../helpers/cart";
 import { Container, Row, Col, Media, Input } from "reactstrap";
 import cart from "../../../../public/assets/images/icon-empty-cart.png";
+import { useRouter } from "next/router";
 
 const CartPage = () => {
   const context = useContext(CartContext);
@@ -12,6 +13,7 @@ const CartPage = () => {
   const [quantity, setQty] = useState(1);
   const [quantityError, setQuantityError] = useState(false);
   const updateQty = context.updateQty;
+  const router = useRouter();
 
   const handleQtyUpdate = (item, quantity) => {
     if (quantity >= 1) {
@@ -41,6 +43,11 @@ const CartPage = () => {
     }
   };
 
+  const clickProductDetail = (product) => {
+    const titleProps = product.attributes.title.split(" ").join("");
+    router.push(`/product-details/${product.id}` + "-" + `${titleProps}`, undefined, { shallow: true });
+  };
+
   return (
     <div>
       {cartItems && cartItems.length > 0 ? (
@@ -64,9 +71,9 @@ const CartPage = () => {
                       <tbody key={index}>
                         <tr>
                           <td>
-                            <Link href={`/left-sidebar/product/` + item.id}>
                             
                                 <Media
+                                  onClick={() => clickProductDetail(item)}
                                   src={
                                     item.attributes.img_shop_compare_736_1000
                                       ? item.attributes.img_shop_compare_736_1000.data[0].attributes.url
@@ -74,13 +81,11 @@ const CartPage = () => {
                                   }
                                   alt=""
                                 />
-                              
-                            </Link>
                           </td>
                           <td>
-                            <Link href={`/left-sidebar/product/` + item.id}>
+                            <div onClick={() => clickProductDetail(item)}>
                             {item.attributes.title}
-                            </Link>
+                            </div>
                             <div className="mobile-cart-content row">
                               <div className="col-xs-3">
                                 <div className="qty-box">

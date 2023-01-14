@@ -1,25 +1,21 @@
 import React, { Fragment } from "react";
 import { Container, Row, Col, Media } from "reactstrap";
-import banner4 from "../../../../public/assets/images/marijuana/banner/4.jpg";
-import banner2 from "../../../../public/assets/images/marijuana/banner/2.jpg";
 import { gql } from '@apollo/client';
 import { useQuery } from "@apollo/client";
 
 const Data = [
   {
-    img: banner4,
     link: "#",
     classes: "p-left text-center",
   },
   {
-    img: banner2,
     link: "#",
     classes: "p-right text-center",
   },
 ];
 const GET_FEATURED_CATEGORIES = gql`
 query {
-  categories(pagination: { start: 0, limit: 2 }) {
+  categories(filters:{title:{ne:"All"}},pagination: { start: 0, limit: 2 }) {
     data {
       id
       attributes {
@@ -38,23 +34,21 @@ query {
 }
 `;
 
-const MasterBanner = ({ img, title, desc, link, classes }) => {
+const MasterBanner = ({ img, title, link, classes }) => {
   return (
     <Col md="6">
-      <a href="#">
+      <a href={link}>
         <div className={`collection-banner ${classes}`}>
           <div className="img-part">
             <Media
-              src={img}
-              className="img-fluid blur-up lazyload bg-img"
-              alt=""
               style={{borderRadius:"15px"}}
+              className="img-fluid blur-up lazyload bg-img"
+              src={img}
             />
           </div>
-          <div className="contain-banner">
+          <div className="contain-banner text-center row g-0" style={{backgroundColor:"rgba(0,0,0,0.4)",borderRadius:"15px"}}>
             <div>
-              <h4>{title}</h4>
-              <h2>{desc}</h2>
+              <h2>{title}</h2>
             </div>
           </div>
         </div>
@@ -75,9 +69,8 @@ const BannerSection = () => {
               <MasterBanner
                 key={item.id}
                 img={item.attributes.img_home_672_249.data.attributes.url}
-                link={Data[i].link}
+                link={`/shop/store?category=${item.attributes.title}&type=&minPrice=0&maxPrice=1000`}
                 title={item.attributes.title}
-                desc={item.attributes.description}
                 classes={Data[i].classes}
               />
             );
