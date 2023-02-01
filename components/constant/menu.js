@@ -4,6 +4,5 @@ export const MENUITEMS = [
    {path: '/page/about-us', title: 'About Us', type: 'link'},
    {path: '/page/compare', title: 'Compare', type: 'link'},
    {path: '/page/collection', title: 'Collection', type: 'link'},
-   {path: '/page/faq', title: 'faq', type: 'link'},
 ]
 

@@ -53,13 +53,6 @@ const MasterFooter = ({
                 <Row>
                   <Col lg="6">
                     <div className="subscribe">
-                      <div>
-                        <h4>KNOW IT ALL FIRST!</h4>
-                        <p>
-                          Never Miss Anything From Multikart By Signing Up To
-                          Our Newsletter.
-                        </p>
-                      </div>
                     </div>
                   </Col>
                   <Col lg="6">
@@ -271,15 +264,11 @@ const MasterFooter = ({
                     <div className="footer-contant">
                       <ul className="contact-list">
                         <li>
-                          <i className="fa fa-map-marker"></i>Multikart Demo
-                          Store, Demo store India 345-659
+                          <i className="fa fa-map-marker"></i>MasPlants
                         </li>
                         <li>
                           <i className="fa fa-envelope-o"></i>Email Us:{" "}
-                          <a href="#">Support@Fiot.com</a>
-                        </li>
-                        <li>
-                          <i className="fa fa-fax"></i>Fax: 123456
+                          <a href="#">MjCreativesllc@gmail.com</a>
                         </li>
                       </ul>
                     </div>

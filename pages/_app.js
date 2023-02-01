@@ -56,7 +56,7 @@ export default function MyApp({ Component, pageProps }) {
             {/* <Head>
               <link rel="icon" type="image/x-icon" href={favicon} />
             </Head> */}
-            <title>Multikart - Multi-purpopse E-commerce React Template</title>
+            <title>MasPlants</title>
           </Helmet>
           <div>
             <SettingProvider>
